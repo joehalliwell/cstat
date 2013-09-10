@@ -15,8 +15,16 @@ int main(int argc, char** argv) {
 	double sum2 = 0;
 	int count = 0;
 
+	char* line = NULL;
+	size_t len = 0;
+
 	double in = 0;
-	while (scanf("%lf", &in) != -1) {
+	
+	while (getline(&line, &len, stdin) != -1) {
+		if (sscanf(line, "%lf", &in) != 1) { 
+			//fprintf(stderr, "Skipping malformed line %s", line);
+			continue;
+		}
 		if (in < min) min = in;
 		if (in > max) max = in;
 		sum		+= in;
@@ -33,6 +41,6 @@ int main(int argc, char** argv) {
 	printf("min:\t%lf\n", min);
 	printf("max:\t%lf\n", max);
 	printf("avg:\t%lf\n", avg);
-	printf("var:\t%lf\n", var);
+	//printf("var:\t%lf\n", var);
 	printf("std:\t%lf\n", std);	
 }
