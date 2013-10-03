@@ -14,6 +14,7 @@ int main(int argc, char** argv) {
 	double sum = 0;
 	double sum2 = 0;
 	int count = 0;
+	int bad = 0;
 
 	char* line = NULL;
 	size_t len = 0;
@@ -23,6 +24,7 @@ int main(int argc, char** argv) {
 	while (getline(&line, &len, stdin) != -1) {
 		if (sscanf(line, "%lf", &in) != 1) { 
 			//fprintf(stderr, "Skipping malformed line %s", line);
+			bad++;
 			continue;
 		}
 		if (in < min) min = in;
@@ -33,14 +35,15 @@ int main(int argc, char** argv) {
 	}
 
 	double avg = sum / count;
-	double var = sum2 / count - pow(avg, 2);
+	double var = sum2 / count - pow(avg, 2); // Or unbiased?
 	double std = sqrt(var);
 	
 	printf("cnt:\t%d\n", count);
-	printf("sum:\t%lf\n", sum);
-	printf("min:\t%lf\n", min);
-	printf("max:\t%lf\n", max);
-	printf("avg:\t%lf\n", avg);
-	//printf("var:\t%lf\n", var);
-	printf("std:\t%lf\n", std);	
+	printf("bad:\t%d\n", bad);
+	printf("sum:\t%.8g\n", sum);
+	printf("min:\t%.8g\n", min);
+	printf("max:\t%.8g\n", max);
+	printf("avg:\t%.8g\n", avg);
+	printf("var:\t%.8g\n", var);
+	printf("std:\t%.8g\n", std);	
 }
